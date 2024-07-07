@@ -58,16 +58,13 @@
   display: flex;
   border-left: #E7F4F4 0.2vw solid;
   border-radius: 0vw 1vw 1vw 0vw;
-  padding: 2%;
+  /* padding: 2%; */
 }
 
 .input-field {
   width: 13vw;
   height: 5vh;
   /* background-color: #176921; */
-  position: absolute;
-  left: 30vw;
-  top: 20vh;
 }
 
 input {
@@ -98,4 +95,39 @@ input::placeholder {
   height: 6%;
   width: 100%;
   background-color: white;
+}
+
+.config-activity {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5vw;
+  width: 100%;
+  height: 40%;
+  /* background-color: red; */
+  padding: 3%;
+  align-items: center;
+  justify-items: center;
+}
+
+select {
+  width: 100%;
+  height: 90%;
+  background-color: transparent;
+  border-left: 3px solid #e7f4f438;
+  border-top: 3px solid #e7f4f438;
+  border-right: 3px solid #e7f4f438;
+  border-bottom: none;
+  transition: 0.3s all;
+}
+
+select:focus {
+  outline: none;
+  border-left: 3px solid #29be3a;
+  border-top: 3px solid #29be3a;
+  border-right: 3px solid #29be3a;
+}
+
+option {
+  background-color: green;
 }

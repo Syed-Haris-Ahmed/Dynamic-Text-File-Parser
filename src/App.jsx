@@ -4,7 +4,7 @@ import OptionBar from './OptionBar'
 import ActivityBar from './ActivityBar'
 
 function App() {
-  const [optionStatus, setOptionStatus] = useState('')
+  const [optionStatus, setOptionStatus] = useState('config')
 
   const handleOptionChange = (option) => {
     setOptionStatus(option)
