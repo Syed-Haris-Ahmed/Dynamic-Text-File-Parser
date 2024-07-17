@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+.main-container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #003625;
+    display: flex;
+}
