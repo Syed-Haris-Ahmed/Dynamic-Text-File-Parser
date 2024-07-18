@@ -27,10 +27,14 @@
     border-bottom: white solid 0.2vw;
 }
 
-.settings-option {
+.setting-options {
     width: 100%;
     height: 30%;
-    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    /* background-color: red; */
 }
 
 .nav-bar-button {

@@ -1,0 +1,41 @@
+* {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    font-family: sans-serif;
+}
+
+.activity-container {
+    width: 95vw;
+    height: 100vh;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    position: absolute;
+    left: 5vw;
+}
+
+.view-container {
+    width: 95vw;
+    height: 50vh;
+    /* background-color: red; */
+}
+
+.config-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.parser-container {
+    /* background-color: yellow; */
+    /* display: none; */
+}
+
+.search-container {
+    /* background-color: green; */
+    /* display: none; */
+}

@@ -6,11 +6,11 @@
 
 body {
     margin: 0;
+    background-color: #003625;
 }
 
 .main-container {
     width: 100vw;
     height: 100vh;
-    background-color: #003625;
     display: flex;
 }
