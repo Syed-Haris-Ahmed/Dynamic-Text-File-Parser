@@ -18,7 +18,7 @@ function InputField(props) {
                 },
               }}
         >
-            {React.cloneElement(props.icon, { sx: { color: 'white', mr: 1, my: 0.5 } })}
+            {React.cloneElement(props.icon, { sx: { color: 'white', mr: 1, my: 0.5, ...props.iconSx } })}
             <TextField
               id="input-with-sx"
               label={props.text}

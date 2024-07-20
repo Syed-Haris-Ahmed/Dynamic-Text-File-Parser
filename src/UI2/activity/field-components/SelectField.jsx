@@ -5,10 +5,10 @@ import MenuItem from '@mui/material/MenuItem'
 import Select from '@mui/material/Select'
 
 function SelectField(props) {
-  const [age, setAge] = React.useState('10')
+  const [fileType, setFileType] = React.useState('0')
 
   const handleChange = (event) => {
-    setAge(event.target.value)
+    setFileType(event.target.value)
   }
 
   return (
@@ -22,14 +22,14 @@ function SelectField(props) {
                     '&:hover': { color: '#92ffdf' }, // Hover label color
                 }}
             >
-                Age
+                {props.text}
             </InputLabel>
         
             <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={age}
-                label="Age"
+                value={fileType} // Use the state variable here
+                label={props.text}
                 sx={{
                     width: 250,
                     height: 40,
@@ -52,9 +52,11 @@ function SelectField(props) {
 
                 onChange={handleChange}
             >
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {props.menuItems.map((item) => (
+                    <MenuItem key={item.value} value={item.value}>
+                        {item.label}
+                    </MenuItem>
+                ))}
             </Select>
         </Box>
     </div> 

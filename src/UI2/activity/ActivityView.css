@@ -18,7 +18,7 @@
 
 .view-container {
     width: 95vw;
-    height: 50vh;
+    height: 100vh;
     /* background-color: red; */
 }
 
@@ -28,6 +28,55 @@
     grid-template-columns: 1fr 1fr 1fr;
     justify-items: center;
     align-items: center;
+    height: 30vh;
+    padding-top: 5%;
+    /* background-color: red; */
+}
+
+.table-container {
+    position: absolute;
+    width: 50%;
+    height: 70%;
+    /* background-color: red; */
+    left: 8.5vw;
+}
+
+.process-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    /* background-color: green; */
+}
+
+.process-buttons-container {
+    width: 25%;
+    height: 70%;
+    /* background-color: blue; */
+    position: absolute;
+    left: 72vw;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr;
+    /* align-items: center; */
+}
+
+.grid-element {
+    height: 50%;
+    width: 62%;
+    /* background-color: black; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.grid-element:nth-child(1) {
+    margin-top: 10%;
+}
+
+.grid-element:nth-child(2) {
+    margin-bottom: 100%;
 }
 
 .parser-container {
