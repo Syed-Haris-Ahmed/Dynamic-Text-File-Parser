@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import './Fields.css'
+import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, IconButton, TextField, Select, MenuItem, Button } from '@mui/material'
+import { Add, Edit, Save, Delete } from '@mui/icons-material'
 
 const EditableTable = () => {
   const [rows, setRows] = useState([])
-  const [newRow, setNewRow] = useState({ index: '', name: '', type: 'text' })
+  const [newRow, setNewRow] = useState({ index: '', name: '', type: 'Text' })
+  const [selectAll, setSelectAll] = useState(false)
+  const [showDeleteAll, setShowDeleteAll] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -16,8 +20,8 @@ const EditableTable = () => {
   }
 
   const handleAddRow = () => {
-    setRows([...rows, { ...newRow, isEditing: false }])
-    setNewRow({ index: '', name: '', type: 'text' })
+    setRows([...rows, { ...newRow, isEditing: false, isChecked: false }])
+    setNewRow({ index: '', name: '', type: 'Text' })
   }
 
   const handleEditRow = (index) => {
@@ -37,6 +41,11 @@ const EditableTable = () => {
       }
       return row
     })
+    setRows(updatedRows)
+  }
+
+  const handleDeleteRow = (index) => {
+    const updatedRows = rows.filter((_, i) => i !== index)
     setRows(updatedRows)
   }
 
@@ -62,105 +71,229 @@ const EditableTable = () => {
     setRows(updatedRows)
   }
 
+  const handleCheckboxChange = (index) => {
+    const updatedRows = rows.map((row, i) => {
+      if (i === index) {
+        return { ...row, isChecked: !row.isChecked }
+      }
+      return row
+    })
+    setRows(updatedRows)
+  }
+
+  const handleSelectAllChange = () => {
+    const newSelectAll = !selectAll
+    setSelectAll(newSelectAll)
+    const updatedRows = rows.map((row) => ({
+      ...row,
+      isChecked: newSelectAll,
+    }))
+    setRows(updatedRows)
+    setShowDeleteAll(newSelectAll)
+  }
+
+  const handleDeleteAll = () => {
+    setRows([])
+    setSelectAll(false)
+    setShowDeleteAll(false)
+  }
+
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <h3>Configuration Table</h3>
-      <table border="1">
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                checked={selectAll}
+                onChange={handleSelectAllChange}
+                style={{ color: 'white' }}
+              />
+            </TableCell>
+            <TableCell>Index</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Type</TableCell>
+            <TableCell>
+              {showDeleteAll && (
+                <Button onClick={handleDeleteAll} variant="contained" color="error">
+                  Delete All
+                </Button>
+              )}
+            </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {rows.map((row, index) => (
-            <tr key={index}>
-              <td>
+            <TableRow key={index}>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  checked={row.isChecked}
+                  onChange={() => handleCheckboxChange(index)}
+                  style={{ color: 'white' }}
+                />
+              </TableCell>
+              <TableCell>
                 {row.isEditing ? (
-                  <input
+                  <TextField
                     type="text"
                     name="index"
                     value={row.index}
                     onChange={(e) => handleRowChange(index, e)}
+                    variant="standard"
+                    InputProps={{ style: { color: 'white' } }}
+                    sx={{
+                      '& .MuiInputLabel-root': { color: 'white' },
+                      '&:hover .MuiInputLabel-root': { color: '#92ffdf' },
+                      '& .MuiInputLabel-root.Mui-focused': { color: '#00e9a2' },
+                      '& .MuiInputLabel-root.Mui-focused:hover:': { color: '#00e9a2' },
+                      '& .MuiInputBase-root': { color: 'white' },
+                      '& .MuiInputBase-input:hover': { color: '#92ffdf' },
+                      '& .MuiInput-underline:hover:not(.Mui-disabled):before': { borderBottomColor: '#dcfff5' },
+                      '& .MuiInput-underline:before': { borderBottomColor: 'white' },
+                      '& .MuiInput-underline:after': { borderBottomColor: '#00e9a2' },
+                    }}
                   />
                 ) : (
                   row.index
                 )}
-              </td>
-              <td>
+              </TableCell>
+              <TableCell>
                 {row.isEditing ? (
-                  <input
+                  <TextField
                     type="text"
                     name="name"
                     value={row.name}
                     onChange={(e) => handleRowChange(index, e)}
+                    variant="standard"
+                    InputProps={{ style: { color: 'white' } }}
+                    sx={{
+                      '& .MuiInputLabel-root': { color: 'white' },
+                      '&:hover .MuiInputLabel-root': { color: '#92ffdf' },
+                      '& .MuiInputLabel-root.Mui-focused': { color: '#00e9a2' },
+                      '& .MuiInputLabel-root.Mui-focused:hover:': { color: '#00e9a2' },
+                      '& .MuiInputBase-root': { color: 'white' },
+                      '& .MuiInputBase-input:hover': { color: '#92ffdf' },
+                      '& .MuiInput-underline:hover:not(.Mui-disabled):before': { borderBottomColor: '#dcfff5' },
+                      '& .MuiInput-underline:before': { borderBottomColor: 'white' },
+                      '& .MuiInput-underline:after': { borderBottomColor: '#00e9a2' },
+                    }}
                   />
                 ) : (
                   row.name
                 )}
-              </td>
-              <td>
+              </TableCell>
+              <TableCell>
                 {row.isEditing ? (
-                  <select
+                  <Select
                     name="type"
                     value={row.type}
                     onChange={(e) => handleRowSelectChange(index, e)}
+                    variant="standard"
+                    style={{ color: 'white' }}
+                    inputProps={{ style: { color: 'white' } }}
+                    sx={{ '& .MuiSelect-select': { color: 'white' } }}
                   >
-                    <option value="text">Text</option>
-                    <option value="numeric">Numeric</option>
-                    <option value="date">Date</option>
-                  </select>
+                    <MenuItem value="Text">Text</MenuItem>
+                    <MenuItem value="Numeric">Numeric</MenuItem>
+                    <MenuItem value="Date">Date</MenuItem>
+                  </Select>
                 ) : (
                   row.type
                 )}
-              </td>
-              <td>
+              </TableCell>
+              <TableCell>
                 {row.isEditing ? (
-                  <button onClick={() => handleSaveRow(index)}>Save</button>
+                  <IconButton onClick={() => handleSaveRow(index)} style={{ color: 'white' }}>
+                    <Save />
+                  </IconButton>
                 ) : (
-                  <button onClick={() => handleEditRow(index)}>Edit</button>
+                  <>
+                    <IconButton onClick={() => handleEditRow(index)} style={{ color: 'white' }}>
+                      <Edit />
+                    </IconButton>
+                    <IconButton onClick={() => handleDeleteRow(index)} style={{ color: 'white' }}>
+                      <Delete />
+                    </IconButton>
+                  </>
                 )}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-          <tr>
-            <td>
-              <input
+          <TableRow>
+            <TableCell padding="checkbox">
+              <Checkbox
+                disabled
+                style={{ color: 'white' }}
+              />
+            </TableCell>
+            <TableCell>
+              <TextField
                 type="text"
                 name="index"
                 value={newRow.index}
                 onChange={handleInputChange}
                 placeholder="Index"
+                variant="standard"
+                InputProps={{ style: { color: 'white' } }}
+                sx={{
+                  '& .MuiInputLabel-root': { color: 'white' },
+                  '&:hover .MuiInputLabel-root': { color: '#92ffdf' },
+                  '& .MuiInputLabel-root.Mui-focused': { color: '#00e9a2' },
+                  '& .MuiInputLabel-root.Mui-focused:hover:': { color: '#00e9a2' },
+                  '& .MuiInputBase-root': { color: 'white' },
+                  '& .MuiInputBase-input:hover': { color: '#92ffdf' },
+                  '& .MuiInput-underline:hover:not(.Mui-disabled):before': { borderBottomColor: '#dcfff5' },
+                  '& .MuiInput-underline:before': { borderBottomColor: 'white' },
+                  '& .MuiInput-underline:after': { borderBottomColor: '#00e9a2' },
+                }}
               />
-            </td>
-            <td>
-              <input
+            </TableCell>
+            <TableCell>
+              <TextField
                 type="text"
                 name="name"
                 value={newRow.name}
                 onChange={handleInputChange}
                 placeholder="Name"
+                variant="standard"
+                InputProps={{ style: { color: 'white' } }}
+                sx={{
+                  '& .MuiInputLabel-root': { color: 'white' },
+                  '&:hover .MuiInputLabel-root': { color: '#92ffdf' },
+                  '& .MuiInputLabel-root.Mui-focused': { color: '#00e9a2' },
+                  '& .MuiInputLabel-root.Mui-focused:hover:': { color: '#00e9a2' },
+                  '& .MuiInputBase-root': { color: 'white' },
+                  '& .MuiInputBase-input:hover': { color: '#92ffdf' },
+                  '& .MuiInput-underline:hover:not(.Mui-disabled):before': { borderBottomColor: '#dcfff5' },
+                  '& .MuiInput-underline:before': { borderBottomColor: 'white' },
+                  '& .MuiInput-underline:after': { borderBottomColor: '#00e9a2' },
+                }}
               />
-            </td>
-            <td>
-              <select
+            </TableCell>
+            <TableCell>
+              <Select
                 name="type"
                 value={newRow.type}
                 onChange={handleSelectChange}
+                variant="standard"
+                style={{ color: 'white' }}
+                inputProps={{ style: { color: 'white' } }}
+                sx={{ '& .MuiSelect-select': { color: 'white' } }}
               >
-                <option value="text">Text</option>
-                <option value="numeric">Numeric</option>
-                <option value="date">Date</option>
-              </select>
-            </td>
-            <td>
-              <button onClick={handleAddRow}>Add</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                <MenuItem value="Text">Text</MenuItem>
+                <MenuItem value="Numeric">Numeric</MenuItem>
+                <MenuItem value="Date">Date</MenuItem>
+              </Select>
+            </TableCell>
+            <TableCell>
+              <IconButton onClick={handleAddRow} style={{ color: 'white' }}>
+                <Add />
+              </IconButton>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
     </div>
   )
 }

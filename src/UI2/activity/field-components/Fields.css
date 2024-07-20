@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
     box-sizing: border-box;
     overflow-x: hidden;
@@ -31,4 +35,16 @@ table {
     text-align: center;
     vertical-align: middle;
     font-size: 1.2vw;
+}
+
+td, th {
+    color: white !important;
+}
+
+.css-pqjvzy-MuiSvgIcon-root-MuiSelect-icon, .css-1mf6u8l-MuiSvgIcon-root-MuiSelect-icon {
+    color: white !important;
+}
+
+.css-1eed5fa-MuiInputBase-root-MuiInput-root::after, .css-1eed5fa-MuiInputBase-root-MuiInput-root::after:hover {
+    border-color: #00e9a2 !important;
 }
