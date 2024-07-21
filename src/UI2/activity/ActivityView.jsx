@@ -1,26 +1,32 @@
-import React from "react"
+import React from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import './ActivityView.css'
-import ConfigView from "./ConfigView"
-import ParserView from "./ParserView"
-import SearchView from "./SearchView"
+import ConfigView from './ConfigView'
+import ParserView from './ParserView'
+import SearchView from './SearchView'
+import SettingsView from './SettingsView'
 
-function ActivityView(props) {
-    if (!props.activity) {
-        props.activity = "config"
+function ActivityView({ activity }) {
+    if (!activity) {
+        activity = 'config'
     }
 
     const Component = {
-        'config': ConfigView,
-        'parser': ParserView,
-        'search': SearchView,
-    }[props.activity]
+        config: ConfigView,
+        parser: ParserView,
+        search: SearchView,
+        settings: SettingsView,
+    }[activity]
 
     return (
-        <div className="activity-container">
-            <Component />
-        </div>
+        <TransitionGroup className="activity-container">
+            <CSSTransition key={activity} timeout={300} classNames="fade">
+                <div className="activity-content">
+                    <Component />
+                </div>
+            </CSSTransition>
+        </TransitionGroup>
     )
 }
-
 
 export default ActivityView

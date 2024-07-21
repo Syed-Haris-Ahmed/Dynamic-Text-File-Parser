@@ -48,3 +48,23 @@ td, th {
 .css-1eed5fa-MuiInputBase-root-MuiInput-root::after, .css-1eed5fa-MuiInputBase-root-MuiInput-root::after:hover {
     border-color: #00e9a2 !important;
 }
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root:hover {
+    background-color: #5effd1 !important;
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root {
+    color: #121212 !important;
+    background-color: #53e1c2 !important;
+}
+
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+    color: #ffffff !important;
+    border: 1px solid #00e9a3a2 !important;
+    transition: 0.3s all;
+}
+
+.css-1rwt2y5-MuiButtonBase-root-MuiButton-root:hover {
+    color: #5effd1 !important;
+    border: 1px solid #00e9a2 !important;
+}

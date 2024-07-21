@@ -8,7 +8,7 @@
     width: 5vw;
     height: 100vh;
     position: fixed;
-    background-color: #101015;
+    background-color: #0f0f13;
     border-radius: 0vw 1.5vw 1.5vw 0vw;
     display: flex;
     flex-direction: column;
@@ -47,6 +47,9 @@
     align-items: center;
     /* background-color: red; */
     cursor: pointer;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .nav-bar-button-icon {
@@ -56,4 +59,30 @@
 
 .nav-bar-button-text {
     display: none;
+}
+
+.selected-option {
+    width: 100%;
+    height: 10%;
+    position: absolute;
+    background-color: #000000;
+    z-index: -1;
+    top: 10%;
+    transition: all 0.3s;
+}
+
+.selected-option.config {
+    top: 10%; /* Position for Configuration */
+}
+
+.selected-option.parser {
+    top: 30%; /* Position for Parse File */
+}
+
+.selected-option.search {
+    top: 50%; /* Position for Search */
+}
+
+.selected-option.settings {
+    top: 74%; /* Position for Search */
 }

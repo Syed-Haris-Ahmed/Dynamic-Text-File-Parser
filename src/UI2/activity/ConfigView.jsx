@@ -6,6 +6,9 @@ import CreateIcon from '@mui/icons-material/Create'
 import VerticalAlignCenterRoundedIcon from '@mui/icons-material/VerticalAlignCenterRounded'
 import EditableTable from "./field-components/EditableTable"
 import ActionButtons from "./field-components/ActionButtons"
+import UploadFileIcon from '@mui/icons-material/UploadFile'
+import DownloadIcon from '@mui/icons-material/Download'
+import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined'
 
 const menuItems = [
     { value: 0, label: "CSV" },
@@ -28,12 +31,12 @@ function ConfigView() {
 
                 <div className="process-buttons-container">
                     <div className="grid-element">
-                        <ActionButtons variant = "outlined" text = "Upload Config" icon = {<CreateIcon />}/>
+                        <ActionButtons variant = "outlined" text = "Upload Config" icon = {<UploadFileIcon />}/>
                     </div>
 
                     <div className="grid-element">
-                        <ActionButtons variant = "outlined" text = "Download Config" icon = {<CreateIcon />}/>
-                        <ActionButtons variant = "contained" text = "Save Config to DB" icon = {<CreateIcon />}/>
+                        <ActionButtons variant = "outlined" text = "Download Config" icon = {<DownloadIcon />}/>
+                        <ActionButtons variant = "contained" text = "Save Config to DB" icon = {<CloudUploadOutlinedIcon />}/>
                     </div>
                 </div>
             </div>

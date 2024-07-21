@@ -16,6 +16,35 @@
     left: 5vw;
 }
 
+/* ActivityView.css */
+.activity-container {
+    position: relative;
+}
+
+.activity-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.fade-enter {
+    opacity: 0;
+}
+
+.fade-enter-active {
+    opacity: 1;
+    transition: opacity 300ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit-active {
+    opacity: 0;
+    transition: opacity 300ms ease-in;
+}
+
 .view-container {
     width: 95vw;
     height: 100vh;
@@ -34,19 +63,19 @@
 }
 
 .table-container {
-    position: absolute;
     width: 50%;
-    height: 70%;
+    /* min-height: 70%; */
     /* background-color: red; */
-    left: 8.5vw;
+    margin-left: 9.5vw;
 }
 
 .process-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* min-height: 70vh; */
     /* background-color: green; */
+    margin-bottom: 5%;
 }
 
 .process-buttons-container {
@@ -63,7 +92,7 @@
 
 .grid-element {
     height: 50%;
-    width: 62%;
+    width: 70%;
     /* background-color: black; */
     display: flex;
     flex-direction: column;
@@ -85,6 +114,79 @@
 }
 
 .search-container {
-    /* background-color: green; */
-    /* display: none; */
+    display: flex;
+    height: 90%;
+    width: 95%;
+    /* align-items: center; */
+    flex-direction: column;
+    row-gap: 20px;
+    /* background-color: red; */
+    margin-top: 2.5%;
+    margin-left: 2.5%;
+}
+
+h2 {
+    margin: 10px;
+    font-size: 40px;
+    color: white;
+}
+
+.search-bar {
+    width: 98%;
+    height: 10%;
+    /* background-color: red; */
+    margin-left: 1%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kjLYSM {
+    overflow: hidden;
+}
+
+.search-main-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.search-result-container {
+    font-size: 1.5vw;
+    color: rgb(212, 212, 212);
+    /* background-color: black; */
+    height: 98%;
+}
+
+.search-result {
+    /* background-color: red; */
+    margin-top: 1%;
+    height: 10%;
+    width: 98%;
+    display: flex;
+    align-items: center;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding-left: 1%;
+    padding-right: 1%;
+    transition: 0.3s all;
+}
+
+.search-result.even {
+    background-color: #001f17; /* Example color for even items */
+}
+
+.search-result.odd {
+    background-color: #001f09; /* Example color for odd items */
+}
+
+
+.list-container {
+    /* background-color: red; */
+    height: 70%;
+    width: 98%;
+    margin-left: 1.1%;
+    padding: 1%;
 }
