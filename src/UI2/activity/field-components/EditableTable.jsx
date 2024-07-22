@@ -3,14 +3,18 @@ import './Fields.css'
 import { Table, TableHead, TableRow, TableCell, TableBody, Checkbox, IconButton, TextField, Select, MenuItem, Button } from '@mui/material'
 import { Add, Edit, Save, Delete } from '@mui/icons-material'
 
-const EditableTable = () => {
-  const [rows, setRows] = useState([])
+const EditableTable = ({ rows, setRows }) => {
   const [newRow, setNewRow] = useState({ index: '', name: '', type: 'Text' })
   const [selectAll, setSelectAll] = useState(false)
   const [showDeleteAll, setShowDeleteAll] = useState(false)
+  const [isIndexAutoIncrement, setIsIndexAutoIncrement] = useState(true)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
+    if (name === 'index') {
+      if (!/^\d*$/.test(value)) return
+      setIsIndexAutoIncrement(value === '')
+    }
     setNewRow({ ...newRow, [name]: value })
   }
 
@@ -20,8 +24,23 @@ const EditableTable = () => {
   }
 
   const handleAddRow = () => {
-    setRows([...rows, { ...newRow, isEditing: false, isChecked: false }])
+    const newIndex = isIndexAutoIncrement ? rows.length + 1 : parseInt(newRow.index, 10)
+    let updatedRows
+    if (rows.some(row => row.index === newIndex)) {
+      updatedRows = rows.map(row => {
+        if (row.index >= newIndex) {
+          return { ...row, index: row.index + 1 }
+        }
+        return row
+      })
+      updatedRows = [...updatedRows, { ...newRow, index: newIndex, isEditing: false, isChecked: false }]
+      updatedRows.sort((a, b) => a.index - b.index)
+    } else {
+      updatedRows = [...rows, { ...newRow, index: newIndex, isEditing: false, isChecked: false }]
+    }
+    setRows(updatedRows)
     setNewRow({ index: '', name: '', type: 'Text' })
+    setIsIndexAutoIncrement(true)
   }
 
   const handleEditRow = (index) => {
@@ -35,22 +54,35 @@ const EditableTable = () => {
   }
 
   const handleSaveRow = (index) => {
-    const updatedRows = rows.map((row, i) => {
-      if (i === index) {
-        return { ...row, isEditing: false }
+    const editedRow = rows[index]
+    const newIndex = parseInt(editedRow.index, 10)
+  
+    let updatedRows = rows.filter((_, i) => i !== index)
+  
+    updatedRows = updatedRows.map(row => {
+      if (row.index >= newIndex) {
+        return { ...row, index: row.index + 1 }
       }
       return row
     })
-    setRows(updatedRows)
-  }
+  
+    updatedRows = [...updatedRows, { ...editedRow, index: newIndex }]
+    updatedRows.sort((a, b) => a.index - b.index)
+  
+    const reindexedRows = updatedRows.map((row, i) => ({ ...row, index: i + 1 }))
+  
+    setRows(reindexedRows)
+  }  
 
   const handleDeleteRow = (index) => {
     const updatedRows = rows.filter((_, i) => i !== index)
-    setRows(updatedRows)
+    const reindexedRows = updatedRows.map((row, i) => ({ ...row, index: i + 1 }))
+    setRows(reindexedRows)
   }
 
   const handleRowChange = (index, e) => {
     const { name, value } = e.target
+    if (name === 'index' && !/^\d*$/.test(value)) return
     const updatedRows = rows.map((row, i) => {
       if (i === index) {
         return { ...row, [name]: value }
@@ -136,11 +168,12 @@ const EditableTable = () => {
               <TableCell>
                 {row.isEditing ? (
                   <TextField
-                    type="text"
+                    type="number"
                     name="index"
                     value={row.index}
                     onChange={(e) => handleRowChange(index, e)}
                     variant="standard"
+                    inputMode="numeric"
                     InputProps={{ style: { color: 'white' } }}
                     sx={{
                       '& .MuiInputLabel-root': { color: 'white' },
@@ -229,12 +262,13 @@ const EditableTable = () => {
             </TableCell>
             <TableCell>
               <TextField
-                type="text"
+                type="number"
                 name="index"
                 value={newRow.index}
                 onChange={handleInputChange}
                 placeholder="Index"
                 variant="standard"
+                inputMode="numeric"
                 InputProps={{ style: { color: 'white' } }}
                 sx={{
                   '& .MuiInputLabel-root': { color: 'white' },

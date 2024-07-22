@@ -9,6 +9,7 @@ export default function ActionButtons(props) {
       <Button 
         variant={props.variant} 
         startIcon={props.icon} 
+        onClick={props.onClick}
       >
         {props.text}
       </Button>
