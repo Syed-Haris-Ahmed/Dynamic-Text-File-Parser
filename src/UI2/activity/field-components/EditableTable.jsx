@@ -56,9 +56,14 @@ const EditableTable = ({ rows, setRows }) => {
   const handleSaveRow = (index) => {
     const editedRow = rows[index]
     const newIndex = parseInt(editedRow.index, 10)
+
+    if (index > rows.length - 1 || index < 0) {
+        alert("Enter a valid index!");
+        return
+    }
   
     let updatedRows = rows.filter((_, i) => i !== index)
-  
+
     updatedRows = updatedRows.map(row => {
       if (row.index >= newIndex) {
         return { ...row, index: row.index + 1 }
@@ -66,7 +71,7 @@ const EditableTable = ({ rows, setRows }) => {
       return row
     })
   
-    updatedRows = [...updatedRows, { ...editedRow, index: newIndex }]
+    updatedRows = [...updatedRows, { ...editedRow, index: newIndex, name: editedRow.name, type: editedRow.type, isEditing: false, isChecked: false }]
     updatedRows.sort((a, b) => a.index - b.index)
   
     const reindexedRows = updatedRows.map((row, i) => ({ ...row, index: i + 1 }))
